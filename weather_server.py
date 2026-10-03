@@ -22,22 +22,38 @@
 #
 # 2. Test using the MCP inspector:
 #
+# Test with MCP Inspector:
 # bash: uvx --with "mcp[cli]" --with "requestS" mcp dev ./weather_server.py
+#
+# Test with Terminal for server output:
+# bash: (
+# echo '{"jsonrpc": "2.0", "method": "initialize", "params": {"protocolVersion": "2024-11-05", "capabilities": {}, "clientInfo": {"name": "test-client", "version": "1.0.0"}}, "id": 1}\n'
+# echo '{"jsonrpc": "2.0", "method": "tools/list", "params": {}, "id": 2}'
+# ) | uv run --with mcp==2.3.0 mcp run ./weather_server.py
+#
+# Test with Terminal interactively for calling API methods:
+# bash
+# cat | uv run --with mcp==2.3.0 mcp run ./weather_server.py
+# {"jsonrpc": "2.0", "method": "initialize", "params": {"protocolVersion": "2024-11-05", "capabilities": {}, "clientInfo": {"name": "test-client", "version": "1.0.0"}}, "id": 1}
+# "jsonrpc": "2.0", "method": "tools/call", "params": {"name": "lookup_location", "arguments": {"name": "Canberra"}}, "id": 2}'
 #
 # 3. Claude Desktop Integration:
 # json
 # {
 #  "mcpServers": {
-#    "canberra-weather": {
-#     "command": "uv",
+#    "weather-mcp-server": {
+#      "command": "uv",
 #      "args": [
 #        "run",
-#        "--script",
-#       "/absolute/path/to/weather_server.py"
+#        "--with",
+#        "mcp==2.3.0",
+#        "mcp",
+#        "run",
+#        "/absolute/path/to/your/weather_server.py"
 #      ]
 #    }
 #  }
-# }
+#}
 #
 
 
